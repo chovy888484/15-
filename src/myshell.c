@@ -2,6 +2,8 @@
 #include<string.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include "ls_command.h"
+
 #define MAX_LINE 80
 #define MAX_ARGS 10
 
@@ -39,8 +41,17 @@ int main()
         }else if(strcmp(argv[0], "pwd") == 0){
             getcwd(input, MAX_LINE);
             printf("%s\n", input);
+        }else if(strcmp(argv[0], "ls") == 0){
+            my_ls();
+        }else if(strcmp(argv[0], "cat") == 0){
+            //code..
+        }else{//실행파일이거나, 명령어를 잘못쳤거나..
+            if(access(argv[0], X_OK) == 0){
+                printf("execute %s\n", argv[0]);
+            }else{
+                printf("command not found: %s\n", argv[0]);
+            }
         }
-
     }
     return 0;
 }
